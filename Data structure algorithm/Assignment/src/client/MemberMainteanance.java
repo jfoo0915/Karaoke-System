@@ -317,9 +317,17 @@ public class MemberMainteanance {
         input = true;
         do {
             try {
+                
                 System.out.print("\nGender(M/F): ");
-
                 gender = scanner.next().charAt(0);
+                //VER 1.1 [S]
+                while(gender != 'M' && gender != 'F' && gender != 'm' && gender != 'f'){
+                    System.out.print("Wrong input, only 'M/m' or 'F/f'");
+                    System.out.print("\nGender(M/F): ");
+                    gender = scanner.next().charAt(0);
+                }
+                //VER 1.1 [E] 
+                
                 input = false;
             } catch (Exception ex) {
                 System.out.print("\nIncorrect input: char required");
