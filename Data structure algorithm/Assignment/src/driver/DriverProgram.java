@@ -32,6 +32,9 @@ import java.util.Scanner;
 /**
  *
  * @author Lim Zhen Foo, Lim Wen Jing, Ko Yun Xuan, Desmond Lim Chiang Shen 
+ * Version control history
+ * Initial                  Version                 Date                Description 
+ * Lim Zhen Foo             1.1                  09/11/2023             Fix the user input for non-integer 
  */
 public class DriverProgram {
 
@@ -144,7 +147,15 @@ public class DriverProgram {
         Admin cloneAdmin = iterator.next();
         System.out.println("\nLog in as admin ");
         System.out.print("Enter id: ");
+        //VER 1.1 [S] 
+        //int id = scanner.nextInt();
+        while (!scanner.hasNextInt()) {
+            String input = scanner.next();
+            System.out.println("Invalid input. Please enter a valid integer.");
+            System.out.print("Enter id: ");
+        }
         int id = scanner.nextInt();
+        //VER 1.1 [E] 
         System.out.print("Enter password: ");
         int password = scanner.nextInt();
         if (id == cloneAdmin.getAdminId() && password == cloneAdmin.getPassword()) {
