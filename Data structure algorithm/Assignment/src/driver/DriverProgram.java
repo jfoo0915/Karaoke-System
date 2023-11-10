@@ -35,6 +35,7 @@ import java.util.Scanner;
  * Version control history
  * Initial                  Version                 Date                Description 
  * Lim Zhen Foo             1.1                  09/11/2023             Fix the user input for non-integer 
+ * Lim Zhen Foo             1.2                  10/11/2023             Improve user interaction to be more user friendly  
  */
 public class DriverProgram {
 
@@ -93,13 +94,18 @@ public class DriverProgram {
 
                 case 2: //Member Maintenance
                     if (valid) {
-
-                        mmbrModule.memberModule(member, memSpkMan, memSpkMly, memSpkEng);
+                        //VER 1.2 [S]
+                        //mmbrModule.memberModule(member, memSpkMan, memSpkMly, memSpkEng);
+                        mmbrModule.memberModule(member, memSpkMan, memSpkMly, memSpkEng, roomList);
+                        //VER 1.2 [E]
                     } else {
                         while (!valid) {
                             valid = login(admin);
                         }
-                        mmbrModule.memberModule(member, memSpkMan, memSpkMly, memSpkEng);
+                        //VER 1.2 [S]
+                        //mmbrModule.memberModule(member, memSpkMan, memSpkMly, memSpkEng);
+                        mmbrModule.memberModule(member, memSpkMan, memSpkMly, memSpkEng, roomList);
+                        //VER 1.2 [E] 
                     }
                     break;
 
@@ -157,7 +163,15 @@ public class DriverProgram {
         int id = scanner.nextInt();
         //VER 1.1 [E] 
         System.out.print("Enter password: ");
+        //VER 1.1 [S] 
+        scanner.reset();
+        while (!scanner.hasNextInt()) {
+            String input = scanner.next();
+            System.out.println("Invalid input. Please enter a valid integer.");
+            System.out.print("Enter password: ");
+        }
         int password = scanner.nextInt();
+        //VER 1.1 [E] 
         if (id == cloneAdmin.getAdminId() && password == cloneAdmin.getPassword()) {
             return true;
         } else {

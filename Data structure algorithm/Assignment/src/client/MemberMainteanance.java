@@ -5,6 +5,7 @@
  */
 package client;
 
+import adt.ListInterface; //VER 1.1 
 import adt.SetInterface;
 import entity.Member;
 import entity.Room;
@@ -14,10 +15,13 @@ import java.util.Scanner;
 /**
  *
  * @author Lim Zhen Foo
+ * Version control history
+ * Initial                  Version                 Date                Description 
+ * Lim Zhen Foo             1.1                  10/11/2023             Improve user interaction to be more user friendly  
  */
 public class MemberMainteanance {
 
-    public void memberModule(SetInterface<Member> member, SetInterface<Member> memSpkMan, SetInterface<Member> memSpkMly, SetInterface<Member> memSpkEng) {
+    public void memberModule(SetInterface<Member> member, SetInterface<Member> memSpkMan, SetInterface<Member> memSpkMly, SetInterface<Member> memSpkEng, ListInterface<Room> room) { //VER 1.1
 
         Scanner scanner = new Scanner(System.in);
         int number = 0;
@@ -28,7 +32,7 @@ public class MemberMainteanance {
             number = scanner.nextInt();
             switch (number) {
                 case 1:
-                    addMember(member);
+                    addMember(member, room); //VER 1.1 
                     break;
                 case 2:
                     int num = 0;
@@ -288,9 +292,9 @@ public class MemberMainteanance {
 
     }
 
-    public static void addMember(SetInterface member) {
+    public static void addMember(SetInterface member, ListInterface<Room> room) { //VER 1.1 
         Scanner scanner = new Scanner(System.in);
-
+        
         String name = "";
         char gender = ' ';
         String contactNo = "";
@@ -340,19 +344,25 @@ public class MemberMainteanance {
         //input room
         input = true;
         do {
-            
-                System.out.print("\nRoom ID: ");
-                roomId = scanner.nextInt();
 
-                if(roomId<1001 || roomId>1008){
-                    System.out.println("The room id doesn't exist");
-                    input = true;
-                }
-                else{
-                    input = false;
-                }
+            //VER 1.1 [S]
+            System.out.print("\nExisting Room\n");
+            System.out.print(room);
+            System.out.print("\nRoom ID: ");
+            while (!scanner.hasNextInt()) {
+                String input_tmp = scanner.next();
+                System.out.println("Invalid input. Please enter a valid integer.");
+                System.out.print("Room ID: ");
+            }
+            roomId = scanner.nextInt();
             
-
+            if (roomId < 1001 || roomId > 1008) {
+                System.out.println("\nThe room id doesn't exist\n");
+                input = true;
+            } else {
+                input = false;
+            }
+            //VER 1.1 [E]
         } while (input);
 
         input = true;
@@ -383,6 +393,10 @@ public class MemberMainteanance {
         int memberId = 0;
         boolean input = true;
         do {
+            //VER 1.1 [S]
+            System.out.println("\nExisting memeber");
+            System.out.println(existingMember);
+            //VER 1.1 [E]
             try {
                 System.out.print("\nID: ");
                 memberId = scanner.nextInt();
